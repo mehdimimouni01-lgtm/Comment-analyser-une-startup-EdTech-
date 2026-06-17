@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Études de cas sur la réussite dans la filière Edtech</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            --bg-base: #060a14;
+            --bg-surface: rgba(16, 23, 42, 0.6);
+            --bg-surface-hover: rgba(30, 41, 59, 0.8);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #3b82f6; /* Blue */
+            --accent-secondary: #06b6d4; /* Cyan */
+            --glass-blur: 16px;
+            --sidebar-width: 320px;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --sidebar-bg: rgba(6, 10, 20, 0.8);
+            --box-bg: rgba(255,255,255,0.03);
+            --box-bg-hover: rgba(255,255,255,0.06);
+            --box-border: rgba(255,255,255,0.05);
+            --input-bg: rgba(0, 0, 0, 0.2);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --input-text: #fff;
+            --timer-bg: rgba(16, 23, 42, 0.8);
+        }
+
+        body.light-theme {
+            --bg-base: #f0f4f8;
+            --bg-surface: rgba(255, 255, 255, 0.8);
+            --bg-surface-hover: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-primary: #2563eb; 
+            --accent-secondary: #0891b2; 
+            --sidebar-bg: rgba(255, 255, 255, 0.95);
+            --box-bg: rgba(0,0,0,0.03);
+            --box-bg-hover: rgba(0,0,0,0.06);
+            --box-border: rgba(0,0,0,0.05);
+            --input-bg: rgba(255, 255, 255, 0.9);
+            --input-border: rgba(0, 0, 0, 0.15);
+            --input-text: #0f172a;
+            --timer-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-size: 18px;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Abstract Glow Background Elements */
+        .glow-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--accent-primary); }
+        .glow-2 { bottom: -20%; right: -10%; width: 600px; height: 600px; background: var(--accent-secondary); opacity: 0.2; }
+
+                /* Custom Scrollbar for Sidebar */
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.5); }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 40px 30px 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+            margin-top: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.4;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            padding: 0 30px 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .progress-bar-bg {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 0 30px 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .nav-group {
+            padding: 10px 0;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            padding: 15px 30px 5px 30px;
+            margin-top: 20px;
+            font-weight: 700;
+            opacity: 0.7;
+        }
+
+        .nav-item {
+            padding: 12px 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem; font-weight: 600;
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: var(--box-bg);
+        }
+
+        .nav-item.active {
+            color: var(--text-primary);
+            background: var(--box-bg-hover);
+            font-weight: 600;
+        }
+
+        
+
+        .nav-item span.icon {
+            margin-right: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--accent-secondary);
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+            padding: 0 60px 100px;
+            overflow-y: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section {
+            padding-top: 100px;
+            min-height: 80vh;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography */
+        .tagline {
+            color: var(--accent-secondary);
+            font-size: 0.95rem; font-weight: 600;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+        
+        h1 em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--accent-secondary);
+        }
+        
+        h2.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 800px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin: 35px 0 20px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Info Cards */
+        .info-cards-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .info-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            background: var(--box-bg-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .info-icon { font-size: 1.8rem; }
+        .info-text { display: flex; flex-direction: column; }
+        .info-val { font-size: 1.2rem; font-weight: 800; color: var(--text-primary); }
+        .info-leg { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;}
+
+        /* Floating Sticky Timer */
+        .timer-widget {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--timer-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.1);
+            z-index: 100;
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .timer-widget:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+
+        .timer-header {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timer-display {
+            font-family: 'Plus Jakarta Sans', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer-display.danger {
+            color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .timer-controls button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .timer-controls button:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        .timer-presets {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .timer-presets button {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .timer-presets button:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-primary), #2563eb);
+            color: var(--text-primary);
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Explanation Box for Concepts */
+        .concept-box {
+            background: rgba(6, 182, 212, 0.05);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            transition: background 0.3s;
+        }
+        
+        .concept-box strong {
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .big-point {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background: var(--box-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--box-border);
+            transition: background 0.3s;
+        }
+        
+        .big-point:hover {
+            background: var(--box-bg-hover);
+        }
+
+        .data-point {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+            background: var(--box-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .data-icon {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .data-text { flex-grow: 1; font-size: 1rem; color: var(--text-primary); }
+        .source-ref { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px; font-style: italic; }
+        
+        .dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; }
+        .dot-success { background-color: var(--success-color); box-shadow: 0 0 8px var(--success-color); }
+        .dot-warning { background-color: var(--warning-color); box-shadow: 0 0 8px var(--warning-color); }
+        .dot-danger { background-color: var(--danger-color); box-shadow: 0 0 8px var(--danger-color); }
+
+        /* Grids */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .grid-box {
+            background: var(--bg-surface);
+            backdrop-filter: blur(var(--glass-blur));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .grid-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .grid-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-box:hover::before { opacity: 1; }
+        
+        .grid-box h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        /* Questions / Exercices */
+        .question-box {
+            background: var(--box-bg);
+            border: 1px solid var(--box-border);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        .question-box:hover {
+            background: var(--box-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Canvas Synthesis Template Styles */
+        .canvas-container {
+            background: #fdfbf7;
+            padding: 40px;
+            border-radius: 16px;
+            color: var(--text-primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .canvas-container h1 {
+            color: var(--text-primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e25822;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .canvas-card {
+            background: #ffffff;
+            border: 1px dashed #cccccc;
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .canvas-card h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .canvas-card textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 1.1rem;
+            color: #333;
+            resize: vertical;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: border-color 0.2s;
+        }
+        
+        .canvas-card textarea:focus {
+            outline: none;
+            border-color: #e25822;
+            background: #fff;
+        }
+
+        .canvas-card.dark-card {
+            background: #1e1e1e;
+            border: none;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .canvas-card.dark-card h4 {
+            color: #e25822;
+            text-align: center;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .canvas-card.dark-card textarea {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+        
+        .canvas-card.dark-card textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .dark-textarea {
+            width: 100%;
+            height: 120px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-primary);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1rem;
+            resize: vertical;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: border-color 0.3s, background 0.3s;
+            margin-top: 15px;
+        }
+        
+        .dark-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .dark-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-clear {
+            border: 1px solid #1a1a1a;
+            background: transparent;
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .btn-clear:hover {
+            background: #1a1a1a;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 1024px) {
+            h1 { font-size: 2.8rem; }
+            .timer-widget { bottom: 20px; right: 20px; transform: scale(0.8); transform-origin: bottom right; }
+        }
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; max-height: 80px; overflow: hidden; border-right: none; border-bottom: 1px solid var(--border-color); position: fixed; top: 0; background: var(--sidebar-bg); z-index: 1000; }
+            .sidebar:hover, .sidebar:focus-within { max-height: 100vh; overflow-y: auto; height: 100vh; }
+            .main-content { padding: 100px 20px 100px; height: auto; overflow: visible; }
+            .section { min-height: auto; padding-top: 80px; }
+            body { font-size: 15px; }
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1.1rem; }
+            h2.subtitle { font-size: 1.2rem; }
+            .timer-widget { display: none; }
+            .canvas-container { padding: 20px; }
+            .canvas-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Glows -->
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
+
+    <div class="sidebar">
+        <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="flex: 1; padding-right: 10px;">
+                <h2 style="font-size: 1.5rem; line-height: 1.2; margin-bottom: 5px; color: var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -0.03em;">Atelier d'Analyse EdTech</h2>
+                <p style="color: var(--accent-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-top: 0; margin-bottom: 0;">Technologies de l'Éducation</p>
+                
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--box-border);">
+                    <span style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.1em; margin-bottom: 10px; font-weight: 600;">Animé par :</span>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-primary); opacity: 0.9; line-height: 1.6; font-weight: 500;">
+                        <li>Mehdi MIMOUNI</li>
+                        <li>Maryam KHALI</li>
+                        <li>Zakaria En-Nasiry</li>
+                        <li>Aya JEDDI</li>
+                    </ul>
+                </div>
+            </div>
+            <button onclick="toggleTheme()" style="background: var(--box-bg); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; font-size: 1.2rem;" title="Basculer le thème" id="theme-btn">
+                ☀️
+            </button>
+        </div>
+        
+        <div class="progress-container">
+            <span>Progression</span>
+            <span id="progress-text">1/12</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+        
+        <div class="nav-group">
+            <div class="nav-title">Préparation</div>
+            <a href="#intro" class="nav-item nav-link" data-index="1"><span class="icon">></span> Avant de Commencer</a>
+            <a href="#cas" class="nav-item nav-link" data-index="2"><span class="icon">></span> L'Exemple du Jour</a>
+        </div>
+
+        <div class="nav-title" style="color: var(--accent-primary);">Phase 1 : Le Constat</div>
+        <a href="#axe1" class="nav-item nav-link" data-index="3"><span class="icon">01</span> Le Défi Éducatif</a>
+        <a href="#axe2" class="nav-item nav-link" data-index="4"><span class="icon">02</span> Innovation Pédagogique</a>
+        
+        <div class="nav-title" style="color: var(--accent-primary); margin-top: 20px;">Phase 2 : Le Moteur Interne</div>
+        <a href="#axe3" class="nav-item nav-link" data-index="5"><span class="icon">03</span> Flux Financiers</a>
+        <a href="#axe4" class="nav-item nav-link" data-index="6"><span class="icon">04</span> Architecture Tech</a>
+        
+        <div class="nav-title" style="color: var(--accent-primary); margin-top: 20px;">Phase 3 : La Croissance</div>
+        <a href="#axe5" class="nav-item nav-link" data-index="7"><span class="icon">05</span> Acquisition Utilisateurs</a>
+        <a href="#axe6" class="nav-item nav-link" data-index="8"><span class="icon">06</span> Facteurs de Réussite</a>
+        <a href="#axe7" class="nav-item nav-link" data-index="9"><span class="icon">07</span> Validation & Traction</a>
+        
+        <div class="nav-title" style="color: var(--accent-primary); margin-top: 20px;">Phase 4 : L'Avenir</div>
+        <a href="#axe8" class="nav-item nav-link" data-index="10"><span class="icon">08</span> Modèle & Durabilité</a>
+
+        <div class="nav-title" style="margin-top: 25px;">Synthèse Finale</div>
+        <a href="#grille" class="nav-item nav-link" data-index="11"><span class="icon">></span> Le Canevas</a>
+        <a href="#groupe" class="nav-item nav-link" data-index="12"><span class="icon">></span> Cas Pratique (Jeu)</a>
+    </div>
+
+    <div class="main-content" id="scroll-container">
+        
+        <!-- SECTION: INTRO -->
+        <div id="intro" class="section">
+            <span class="tagline">Bienvenue</span>
+            <h1>Comment analyser une startup <em>EdTech</em> ?</h1>
+            <h2 class="subtitle">Comprendre en profondeur les moteurs économiques et technologiques des plateformes de l'éducation.</h2>
+            
+            <div class="info-cards-row">
+                <div class="info-card">
+                    <span class="info-icon">🗺️</span>
+                    <div class="info-text">
+                        <span class="info-val">3 Étapes</span>
+                        <span class="info-leg">Théorie > Audit > Débat</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">👥</span>
+                    <div class="info-text">
+                        <span class="info-val">4 Groupes</span>
+                        <span class="info-leg">Division de la classe</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">🎯</span>
+                    <div class="info-text">
+                        <span class="info-val">1 livrable</span>
+                        <span class="info-leg">Canevas de Synthèse</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center; border-color: var(--accent-secondary);">
+                <h3 style="margin-top: 0; color: var(--accent-secondary); font-family: 'Playfair Display', serif;">Évaluation Diagnostique</h3>
+                <p>Avant d'entamer l'analyse, prenons quelques minutes pour situer vos connaissances actuelles sur les modèles du numérique éducatif.</p>
+                <a href="https://forms.gle/yKMHkyNgSrafEroi7" class="btn-primary" target="_blank">Lancer le test (Google Forms)</a>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <div class="card-icon">01</div>
+                    L'Objectif Pédagogique de l'atelier
+                </div>
+                
+                <div class="big-point">
+                    <span style="color: var(--accent-primary); font-weight: bold;">I.</span>
+                    <div>Auditer le <strong>modèle économique réel</strong> (qui finance l'outil si l'étudiant ne paie pas ?).</div>
+                </div>
+                <div class="big-point">
+                    <span style="color: var(--accent-primary); font-weight: bold;">II.</span>
+                    <div>Distinguer <strong>la vitrine publique</strong> de l'infrastructure technologique cachée.</div>
+                </div>
+                <div class="big-point">
+                    <span style="color: var(--accent-primary); font-weight: bold;">III.</span>
+                    <div>Maîtriser une <strong>grille d'analyse structurée</strong> pour auditer n'importe quelle EdTech.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: LE CAS D'ÉTUDE -->
+        <div id="cas" class="section">
+            <span class="tagline">Notre Exemple</span>
+            <h1>Cas Pratique : <em>Education Media Company</em></h1>
+            <h2 class="subtitle">L'application de notre méthode sur un pionnier marocain.</h2>
+            
+            <div class="grid-container" style="margin-bottom: 40px;">
+                <div class="grid-box">
+                    <h4>Identité de l'entreprise</h4>
+                    <p>Fondée en <strong>2009</strong> au Technopark d'Agadir par Adam Bouhadma. Elle est reconnue comme l'une des entreprises fondatrices du numérique éducatif au Maroc.</p>
+                </div>
+                <div class="grid-box">
+                    <h4>Leur Produit Phare</h4>
+                    <p class="text-highlight" style="font-size: 1.8rem;">9rayti.com</p>
+                    <p><strong>Un assistant d'orientation</strong> rapide pour vous guider vers les universités et écoles supérieures qui correspondent à votre profil et à votre projet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 1: LE DEFI EDUCATIF -->
+        <div id="axe1" class="section">
+            <span class="tagline">Étape 01</span>
+            <h1>Le Défi <em>Éducatif</em></h1>
+            <h2 class="subtitle">Pourquoi 9rayti était-elle nécessaire ? L'identification du problème fondamental.</h2>
+
+            <div class="card" style="border-left: 4px solid var(--accent-secondary);">
+                <div class="big-point">
+                    <div><strong>Le contexte en 2008 :</strong> L'information sur l'orientation (dates de concours, filières) était asymétrique, non numérisée, et dépendante de l'affichage physique dans les lycées ou du "bouche-à-oreille". Cela pénalisait fortement les élèves en zone rurale et les milieux modestes.</div>
+                </div>
+                <div class="big-point">
+                    <div><strong>Aujourd'hui :</strong> Le défi n'est plus le manque d'information, mais la surcharge d'information (multiplication des universités privées, nouvelles filières) et le besoin de qualification et d'un tri fiable.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 2: INNOVATION PEDAGOGIQUE -->
+        <div id="axe2" class="section">
+            <span class="tagline">Étape 02</span>
+            <h1>Innovation <em>Pédagogique</em> & Technologique</h1>
+            <h2 class="subtitle">S'agit-il d'une vraie innovation ou d'une simple numérisation ?</h2>
+
+            <div class="card">
+                <p>La plateforme offre une centralisation des annonces, des simulateurs de notes (bac), et des tests d'orientation. Comparé à une recherche Google brute, 9rayti offre une <strong>contextualisation marocaine spécifique</strong> (intégration du système Massar, prépas locales, concours spécifiques).</p>
+                
+                <div class="data-point" style="background: rgba(245, 158, 11, 0.1); border-left-color: var(--warning-color); margin-top: 20px;">
+                    <div class="data-icon"><span class="dot dot-warning"></span></div>
+                    <div class="data-text">
+                        <strong>Diagnostic Technique :</strong> Il s'agit davantage d'une <em>innovation incrémentale</em> (modèle de portail web / annuaire digitalisé très optimisé) que d'une <em>innovation technologique de rupture</em> (pas d'IA prédictive poussée publiquement documentée à ses débuts). L'innovation a surtout résidé dans la centralisation inédite de l'information.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 3: FLUX FINANCIERS -->
+        <div id="axe3" class="section">
+            <span class="tagline">Étape 03</span>
+            <h1>Les Flux <em>Financiers</em></h1>
+            <h2 class="subtitle">Si le produit est gratuit, qui finance l'entreprise ?</h2>
+
+            <div class="concept-box">
+                <strong>Comprendre le vocabulaire financier :</strong>
+                <p><strong>B2C (Business to Consumer) :</strong> L'entreprise vend directement à l'étudiant (Ex: Un abonnement mensuel à une application de langues).</p>
+                <p><strong>B2B (Business to Business) :</strong> L'entreprise vend son logiciel à une école ou à l'État (Ex: Microsoft Teams pour l'éducation).</p>
+                <p><strong>B2B2C (Business to Business to Consumer) :</strong> L'EdTech joue les médiateurs. Elle offre un service <em>gratuit</em> au consommateur (l'étudiant) pour attirer une immense audience. Ensuite, elle se fait rémunérer par une entreprise tierce (une université) qui souhaite recruter cette audience ciblée.</p>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--accent-primary);">
+                <div class="card-title">La Monétisation chez 9rayti</div>
+                <p style="margin-bottom: 20px; font-weight: 500; color: var(--text-primary);">Le modèle a pivoté : d'une monétisation B2C (publicité display au volume) vers un modèle B2B de génération de leads.</p>
+                <div class="big-point">
+                    <div><strong>La Valeur Sociale (B2C) :</strong> L'élève vient pour trouver son orientation. Il renseigne gratuitement ses notes, sa ville, et ses envies. C'est la création de la base de données.</div>
+                </div>
+                <div class="big-point">
+                    <div><strong>La Valeur Économique (B2B) :</strong> Les universités privées paient pour accéder à la base de données hyper-qualifiée des bacheliers. En marketing, on appelle ces contacts des <strong>Leads</strong> (prospects).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 4: ARCHITECTURE TECH -->
+        <div id="axe4" class="section">
+            <span class="tagline">Étape 04</span>
+            <h1>L'Architecture <em>Technologique</em></h1>
+            <h2 class="subtitle">Séparer l'interface publique du moteur de traitement des données.</h2>
+
+            <div class="concept-box">
+                <strong>La différence entre la Vitrine et le Moteur :</strong>
+                <p><strong>Le Front-end (La Vitrine) :</strong> C'est le site web public. Son seul but est d'être ergonomique et attractif pour capter l'attention de l'élève.</p>
+                <p><strong>Le Back-end & le CRM :</strong> CRM signifie <em>Customer Relationship Management</em>. C'est un puissant logiciel invisible pour l'élève. Il trie les millions de données, identifie les meilleurs candidats, et permet aux directeurs d'écoles privées de les contacter.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">La véritable barrière à l'entrée</div>
+                <p>Créer un site web avec des informations sur le Baccalauréat est facile. Ce qui est technologiquement complexe, c'est de construire l'algorithme (le <strong>Scoring</strong>) et le CRM qui analysent les données des lycéens pour recommander les bonnes personnes aux bonnes écoles.</p>
+            </div>
+        </div>
+
+        <!-- AXE 5: ACQUISITION -->
+        <div id="axe5" class="section">
+            <span class="tagline">Étape 05</span>
+            <h1>L'Acquisition <em>Utilisateurs</em></h1>
+            <h2 class="subtitle">Comment générer du trafic naturel sans ruiner l'entreprise.</h2>
+
+            <div class="card">
+                <p>En entrepreneuriat, le <strong>CAC (Coût d'Acquisition Client)</strong> est déterminant. Si une startup doit payer 50 dirhams en publicité pour attirer un étudiant, elle fera faillite. L'enjeu est donc d'attirer les étudiants <em>naturellement</em>.</p>
+                
+                <div class="concept-box" style="margin-top: 15px;">
+                    <strong>La stratégie de survie : Le SEO (Search Engine Optimization)</strong>
+                    <p>Le SEO, c'est l'optimisation pour les Moteurs de Recherche (Google). Au lieu de payer des publicités, la plateforme a rédigé pendant des années des articles pour répondre aux requêtes des lycéens.</p>
+                    <p>Conséquence : Quand un jeune tape une question liée à l'orientation sur Google, la plateforme apparaît en premier. Le trafic est organique, rendant le coût d'acquisition quasiment nul sur le long terme.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 6: FACTEURS DE REUSSITE & ECOSYSTEME -->
+        <div id="axe6" class="section">
+            <span class="tagline">Étape 06</span>
+            <h1>Facteurs de Réussite & <em>Écosystème</em></h1>
+            <h2 class="subtitle">Qu'est-ce qui a fait décoller le projet au-delà de la technologie ?</h2>
+
+            <div class="card">
+                <div class="big-point" style="margin-top: 10px;">
+                    <span style="color: var(--accent-secondary); font-size: 1.8rem;">👤</span>
+                    <div><strong>Le profil du fondateur :</strong> Créée à 17 ans, la jeunesse d'Adam Bouhadma a attiré la sympathie des médias et des investisseurs, créant un storytelling puissant de "success story marocaine".</div>
+                </div>
+                <div class="big-point">
+                    <span style="color: var(--success-color); font-size: 1.8rem;">💰</span>
+                    <div><strong>L'investissement clé :</strong> Les 2,5 millions de MAD du <em>Maroc Numeric Fund</em> en 2014 ont permis de structurer la petite TPE en une véritable entreprise média (Education Media Company).</div>
+                </div>
+                <div class="big-point">
+                    <span style="color: var(--warning-color); font-size: 1.8rem;">⏱️</span>
+                    <div><strong>Le "X-Factor" (Le Timing) :</strong> Arriver sur le web marocain en 2008, <em>avant</em> l'explosion des réseaux sociaux, a permis de capter une audience organique massive qui est devenue une "audience captive".</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 7: VALIDATION ET TRACTION -->
+        <div id="axe7" class="section">
+            <span class="tagline">Étape 07</span>
+            <h1>Validation & <em>Traction</em></h1>
+            <h2 class="subtitle">Qu'est-ce qui rassure les institutions académiques ?</h2>
+
+            <div class="card">
+                <div class="card-title">Les Moteurs de la Confiance Institutionnelle</div>
+                <p>La <em>Traction</em> désigne la preuve qu'un projet a de l'élan et est validé par le marché. Dans le domaine très conservateur de l'éducation, les universités privées ne signent pas de contrats B2B avec des plateformes inconnues.</p>
+                
+                <div class="data-point" style="background: rgba(16, 185, 129, 0.1); border-left-color: var(--success-color); margin-top: 20px;">
+                    <div class="data-icon"><span class="dot dot-success"></span></div>
+                    <div class="data-text">
+                        <strong>Reconnaissance Internationale Majeure :</strong> En 2017, la startup a été récompensée lors du Forum sur le Moyen-Orient en Jordanie par le <strong>WEF (World Economic Forum)</strong> et l'<strong>IFC (Société Financière Internationale)</strong>. Ces labels sont des garanties de confiance pour le B2B.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AXE 8: MODELE ET DURABILITE -->
+        <div id="axe8" class="section">
+            <span class="tagline">Étape 08</span>
+            <h1>Modèle Économique & <em>Durabilité</em></h1>
+            <h2 class="subtitle">Comment ça gagne de l'argent et est-ce viable sur le long terme ?</h2>
+
+            <div class="card">
+                <div class="card-title">Scénarios à horizon 2030</div>
+                <p>L'analyse académique exige de pointer les vulnérabilités. Le modèle repose sur un statut d'<em>intermédiaire</em> entre l'étudiant et l'école.</p>
+                
+                <div class="big-point" style="margin-top: 20px; border-left: 3px solid var(--success-color);">
+                    <span style="font-size: 1.8rem;">🚀</span>
+                    <div><strong>Optimiste :</strong> Intégration de l'IA pour du conseil hyper-personnalisé, et expansion réussie en Afrique francophone.</div>
+                </div>
+                <div class="big-point" style="border-left: 3px solid var(--warning-color);">
+                    <span style="font-size: 1.8rem;">⚖️</span>
+                    <div><strong>Réaliste :</strong> Croissance modérée, la plateforme reste une agence marketing (MarTech) leader sur la niche étudiante marocaine sans disruption majeure.</div>
+                </div>
+                <div class="big-point" style="border-left: 3px solid var(--danger-color);">
+                    <span style="font-size: 1.8rem;">📉</span>
+                    <div><strong>Pessimiste :</strong> Désintermédiation totale par des "GPTs d'orientation" (Intelligence Artificielle) ou par des portails gouvernementaux centralisés qui assèchent le trafic de la plateforme.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: GRILLE UNIVERSELLE & CANEVAS -->
+        <div id="grille" class="section">
+            <span class="tagline">Le Livrable de l'Atelier</span>
+            <h1>Le Canevas de <em>Synthèse</em></h1>
+            <h2 class="subtitle">L'outil formel d'audit pour tout projet EdTech, maintenant interactif en 8 piliers.</h2>
+            
+            <div class="grid-container" id="synthesis-canvas" style="margin-bottom: 30px;">
+                <div class="grid-box">
+                    <h4>01. Défi Éducatif</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Identifier le problème initial que la plateforme résout.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>02. Innovation</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Distinguer la simple numérisation de la rupture technologique.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>03. Flux d'Argent</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Identifier si le client final est l'étudiant (B2C) ou l'école (B2B).</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>04. Architecture</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Séparer la vitrine publique (UI) du moteur caché (CRM).</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>05. Coût d'Acquisition</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Vérifier l'acquisition naturelle (SEO) pour préserver les marges.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>06. Réussite & Écosystème</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Analyser les éléments humains : timing, fondateur, levées.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>07. Traction & Autorité</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Chercher les labels internationaux qui valident le produit.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+                <div class="grid-box">
+                    <h4>08. Durabilité</h4>
+                    <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Anticiper les failles systémiques : menace de l'IA.</p>
+                    <textarea class="canvas-input dark-textarea" placeholder="Tapez vos notes ici..."></textarea>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 15px; margin-bottom: 40px;">
+                <button onclick="clearCanvas()" class="btn-clear" style="color: #94a3b8; border-color: rgba(255,255,255,0.2);">Vider le canevas</button>
+                <button onclick="downloadDocx()" class="btn-primary" style="margin-top: 0; padding: 12px 24px;">📥 Télécharger (.doc Word)</button>
+            </div>
+        </div>
+
+        <!-- SECTION: TRAVAIL DE GROUPE (Interactive) -->
+        <div id="groupe" class="section">
+            <span class="tagline">Mise en Pratique</span>
+            <h1>Simulation <em>Interactive</em></h1>
+            <h2 class="subtitle">Jeu de Rôle Stratégique : Appliquer l'audit aux conditions réelles du marché.</h2>
+            
+            <div class="card" style="border-left: 4px solid var(--accent-secondary);">
+                <p><strong>Règles du jeu :</strong> La classe est divisée en 4 groupes. Vous avez <strong>15 minutes</strong> pour préparer votre stratégie en groupe. Ensuite, nous lançons un grand débat public ("Pitchs" et Négociations) où chaque pôle défend ses intérêts. Lisez bien vos instructions !</p>
+            </div>
+            
+            <div class="card" style="margin-bottom: 30px; background: var(--box-bg);">
+                <h3 style="margin-top:0;">🎲 Tirage au sort des Rôles</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 15px;">Entrez les noms des 4 leaders (ou noms de groupes) pour leur assigner un rôle aléatoirement.</p>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="leader1" class="dark-textarea" style="height: 50px; flex:1; min-width: 150px; margin-top:0; font-weight:bold;" placeholder="Nom du Groupe / Leader 1">
+                    <input type="text" id="leader2" class="dark-textarea" style="height: 50px; flex:1; min-width: 150px; margin-top:0; font-weight:bold;" placeholder="Nom du Groupe / Leader 2">
+                    <input type="text" id="leader3" class="dark-textarea" style="height: 50px; flex:1; min-width: 150px; margin-top:0; font-weight:bold;" placeholder="Nom du Groupe / Leader 3">
+                    <input type="text" id="leader4" class="dark-textarea" style="height: 50px; flex:1; min-width: 150px; margin-top:0; font-weight:bold;" placeholder="Nom du Groupe / Leader 4">
+                </div>
+                <button onclick="assignRoles()" class="btn-primary" style="margin-top:0; width: 100%;">Tirer au sort et Distribuer les Rôles</button>
+            </div>
+            
+            <div class="grid-container">
+                <div class="question-box" style="border-top: 4px solid #ef4444; margin-bottom: 0;">
+                    <div class="question-text" id="role-title-1">🔴 Pôle 1 : Les Attaquants (Startup IA)</div>
+                    <p><strong>Votre Rôle :</strong> De jeunes ingénieurs qui ont créé un "GPT d'Orientation" révolutionnaire.</p>
+                    <p><strong>Votre Objectif :</strong> Détruire le monopole de 9rayti.com (Menace de l'Axe 08).</p>
+                    <p style="margin-top: 15px; color: var(--text-primary);">👉 <strong>Votre Mission pendant le débat :</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 1.1rem;">
+                        <li>Prouvez aux universités que votre <em>Innovation Technologique</em> (Axe 02) rend le site web classique de 9rayti obsolète.</li>
+                        <li>Préparez-vous à expliquer comment vous allez trouver des élèves sans bénéficier du référencement naturel Google (SEO) gratuit de 9rayti (Axe 05).</li>
+                    </ul>
+                </div>
+
+                <div class="question-box" style="border-top: 4px solid #10b981; margin-bottom: 0;">
+                    <div class="question-text" id="role-title-2">🟢 Pôle 2 : La Défense (9rayti.com)</div>
+                    <p><strong>Votre Rôle :</strong> La direction de 9rayti.com, attaquée par la Startup IA.</p>
+                    <p><strong>Votre Objectif :</strong> Sauver votre entreprise et rassurer vos clients (les universités).</p>
+                    <p style="margin-top: 15px; color: var(--text-primary);">👉 <strong>Votre Mission pendant le débat :</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 1.1rem;">
+                        <li>Défendez-vous en utilisant votre <em>Architecture et Base de Données CRM</em> (Axe 04) : l'IA n'a pas les données historiques que vous possédez.</li>
+                        <li>Rappelez vos <em>Labels Internationaux</em> (Axe 07) : prouvez que le marché peut vous faire confiance à 100%, contrairement à une IA non-labellisée.</li>
+                    </ul>
+                </div>
+
+                <div class="question-box" style="border-top: 4px solid #3b82f6; margin-bottom: 0;">
+                    <div class="question-text" id="role-title-3">🔵 Pôle 3 : Les Acheteurs (Universités)</div>
+                    <p><strong>Votre Rôle :</strong> Les directeurs d'écoles supérieures avec un gros budget marketing.</p>
+                    <p><strong>Votre Objectif :</strong> Acheter des profils d'étudiants fiables (Modèle B2B - Axe 03).</p>
+                    <p style="margin-top: 15px; color: var(--text-primary);">👉 <strong>Votre Mission pendant le débat :</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 1.1rem;">
+                        <li>Écoutez les arguments des Pôles 1 et 2 sans prendre parti au début.</li>
+                        <li>Posez-leur des <em>questions pièges et difficiles</em> sur la qualité des étudiants qu'ils vont vous envoyer.</li>
+                        <li>À la fin du débat, annoncez avec qui vous signez le contrat et justifiez pourquoi.</li>
+                    </ul>
+                </div>
+
+                <div class="question-box" style="border-top: 4px solid #f59e0b; margin-bottom: 0;">
+                    <div class="question-text" id="role-title-4">🟠 Pôle 4 : Les Auditeurs (Cabinet TEIP)</div>
+                    <p><strong>Votre Rôle :</strong> Un jury d'experts impartiaux en Technologies de l'Éducation.</p>
+                    <p><strong>Votre Objectif :</strong> Juger la fiabilité de la Startup IA et de 9rayti.com.</p>
+                    <p style="margin-top: 15px; color: var(--text-primary);">👉 <strong>Votre Mission pendant le débat :</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 1.1rem;">
+                        <li>Ouvrez le <em>Canevas de Synthèse</em> (la section noire avec les 8 cases).</li>
+                        <li>Pendant que les autres débattent, tapez en direct leurs arguments (les points forts et les failles) dans les bonnes cases.</li>
+                        <li>À la fin, cliquez sur <em>Télécharger (.doc)</em> et lisez votre rapport officiel à voix haute pour désigner le vainqueur.</li>
+                    </ul>
+                </div>
+            </div>
+            
+             <div class="card" style="text-align: center; border-color: var(--accent-primary); margin-top: 50px;">
+                <h3 style="margin-top: 0; font-family: 'Playfair Display', serif;">Évaluation Sommative</h3>
+                <p>Merci de prendre quelques minutes pour valider l'assimilation des concepts majeurs via ce QCM final.</p>
+                <a href="https://forms.gle/yWwAdqfPqNXsXDi26" class="btn-primary" target="_blank">Lancer l'Évaluation Finale (Google Forms)</a>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Floating Timer Widget -->
+    <div id="sticky-timer" class="timer-widget">
+        <div class="timer-header">Chrono de la Simulation</div>
+        <div class="timer-display" id="time-display">15:00</div>
+        <div class="timer-controls">
+            <button onclick="startTimer()" title="Démarrer">▶</button>
+            <button onclick="pauseTimer()" title="Pause">⏸</button>
+            <button onclick="resetTimer()" title="Réinitialiser">🔄</button>
+        </div>
+        <div class="timer-presets">
+            <button onclick="setTimer(5)">5m</button>
+            <button onclick="setTimer(10)">10m</button>
+            <button onclick="setTimer(15)">15m</button>
+            <button onclick="setTimer(20)">20m</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        
+        /* --- THEME TOGGLE --- */
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('theme-btn');
+            body.classList.toggle('light-theme');
+            if(body.classList.contains('light-theme')) {
+                btn.innerHTML = '🌙';
+            } else {
+                btn.innerHTML = '☀️';
+            }
+        }
+
+        
+        /* --- ROLE ASSIGNMENT --- */
+        function assignRoles() {
+            const l1 = document.getElementById('leader1').value.trim() || "Équipe 1";
+            const l2 = document.getElementById('leader2').value.trim() || "Équipe 2";
+            const l3 = document.getElementById('leader3').value.trim() || "Équipe 3";
+            const l4 = document.getElementById('leader4').value.trim() || "Équipe 4";
+            
+            let leaders = [l1, l2, l3, l4];
+            
+            // Fisher-Yates shuffle
+            for (let i = leaders.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [leaders[i], leaders[j]] = [leaders[j], leaders[i]];
+            }
+            
+            // Update the UI with animations
+            const r1 = document.getElementById('role-title-1');
+            const r2 = document.getElementById('role-title-2');
+            const r3 = document.getElementById('role-title-3');
+            const r4 = document.getElementById('role-title-4');
+            
+            r1.innerHTML = `🔴 Pôle 1 : Les Attaquants (Startup IA)<br><span style="color: var(--text-primary); font-size:1.1rem; display:inline-block; margin-top:8px; padding:4px 10px; background: rgba(239, 68, 68, 0.2); border-radius:6px;">Assigné à : <strong>${leaders[0]}</strong></span>`;
+            r2.innerHTML = `🟢 Pôle 2 : La Défense (9rayti.com)<br><span style="color: var(--text-primary); font-size:1.1rem; display:inline-block; margin-top:8px; padding:4px 10px; background: rgba(16, 185, 129, 0.2); border-radius:6px;">Assigné à : <strong>${leaders[1]}</strong></span>`;
+            r3.innerHTML = `🔵 Pôle 3 : Les Acheteurs (Universités)<br><span style="color: var(--text-primary); font-size:1.1rem; display:inline-block; margin-top:8px; padding:4px 10px; background: rgba(59, 130, 246, 0.2); border-radius:6px;">Assigné à : <strong>${leaders[2]}</strong></span>`;
+            r4.innerHTML = `🟠 Pôle 4 : Les Auditeurs (Cabinet TEIP)<br><span style="color: var(--text-primary); font-size:1.1rem; display:inline-block; margin-top:8px; padding:4px 10px; background: rgba(245, 158, 11, 0.2); border-radius:6px;">Assigné à : <strong>${leaders[3]}</strong></span>`;
+            
+            // Scroll to results
+            r1.parentElement.parentElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+
+        /* --- SCROLL SPY & PROGRESS BAR --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mainContent = document.getElementById('scroll-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const totalSections = sections.length;
+
+            const observerOptions = {
+                root: mainContent,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        const currentId = entry.target.getAttribute('id');
+                        let currentIndex = 1;
+
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${currentId}`) {
+                                link.classList.add('active');
+                                currentIndex = parseInt(link.getAttribute('data-index'));
+                            }
+                        });
+
+                        progressText.innerText = `${currentIndex}/${totalSections}`;
+                        const progressPercent = ((currentIndex) / totalSections) * 100;
+                        progressBar.style.width = `${progressPercent}%`;
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(sec => {
+                observer.observe(sec);
+            });
+
+            /* --- ACCORDIONS --- */
+            const accordions = document.querySelectorAll('.accordion');
+            accordions.forEach(acc => {
+                acc.addEventListener('click', function() {
+                    this.classList.toggle('active-accordion');
+                    const panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                        panel.classList.remove('show');
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + 80 + "px";
+                        panel.classList.add('show');
+                    }
+                });
+            });
+        });
+
+        /* --- CANVAS CLEAR & DOWNLOAD FUNCTIONS --- */
+        function clearCanvas() {
+            if(confirm('Êtes-vous sûr de vouloir effacer toutes les notes du canevas ?')) {
+                const textareas = document.querySelectorAll('.canvas-input');
+                textareas.forEach(ta => ta.value = '');
+            }
+        }
+
+        function downloadDocx() {
+            const titles = [
+                "01. Défi Éducatif", "02. Innovation", "03. Flux d'Argent", "04. Architecture",
+                "05. Coût d'Acquisition", "06. Réussite & Écosystème", "07. Traction & Autorité", "08. Durabilité"
+            ];
+            const inputs = document.querySelectorAll('.canvas-input');
+            
+            let tableHtml = "<table border='1' style='width:100%; border-collapse: collapse; font-family: Arial, sans-serif;'>";
+            tableHtml += "<tr style='background-color: #f2f2f2;'><th>Axe d'Analyse</th><th>Notes de l'Audit</th></tr>";
+            
+            inputs.forEach((input, index) => {
+                let content = (input.value || "Aucune note").replace(/\n/g, "<br>");
+                tableHtml += `<tr>
+                    <td style='width:30%; padding: 10px; font-weight: bold;'>${titles[index]}</td>
+                    <td style='width:70%; padding: 10px;'>${content}</td>
+                </tr>`;
+            });
+            tableHtml += "</table>";
+
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Audit EdTech</title></head><body>";
+            const footer = "</body></html>";
+            const sourceHTML = header + "<h1 style='text-align:center; font-family: Arial;'>Canevas de Synthèse EdTech</h1><br>" + tableHtml + footer;
+
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'Audit_EdTech.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+
+        /* --- FLOATING TIMER WIDGET --- */
+        let timerInterval;
+        let timeLeft = 900;
+        let isRunning = false;
+        let initialTime = 900;
+
+        const timeDisplay = document.getElementById('time-display');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timeDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 60 && timeLeft > 0) {
+                timeDisplay.classList.add('danger');
+            } else {
+                timeDisplay.classList.remove('danger');
+            }
+        }
+
+        function startTimer() {
+            if (!isRunning && timeLeft > 0) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        timeDisplay.innerText = "00:00";
+                        timeDisplay.classList.remove('danger');
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = initialTime;
+            updateDisplay();
+        }
+
+        function setTimer(minutes) {
+            pauseTimer();
+            initialTime = minutes * 60;
+            timeLeft = initialTime;
+            updateDisplay();
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
